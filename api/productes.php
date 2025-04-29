@@ -147,13 +147,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // Peticions PATCH
 } else if($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 
+    $input = json_decode(file_get_contents('php://input'), true);
+    
+
+    $updates = []; // $stmt = $db->prepare("UPDATE..")
+    $params = [':id' => $input['id']]; // $stmt->bindVAlue
+
+    // Comprovar quins camps són presents a la petició i afegir-los a l'array de "updates"
+    if (isset($input['title'])) {
+        $updates[] = "title = :title";
+        $params[':title'] = $input['title'];
+    }
+
+    if (isset($input['price'])) {
+        $updates[] = "price = :price";
+        $params[':price'] = $input['price'];
+    }
+
+    if (isset($input['description'])) {
+        $updates[] = "description = :description";
+        $params[':description'] = $input['description'];
+    }
+
+    if (isset($input['category'])) {
+        $updates[] = "category = :category";
+        $params[':category'] = $input['category'];
+    }
+
+    if (isset($input['image'])) {
+        $updates[] = "image = :image";
+        $params[':image'] = $input['image'];
+    }
+
+
+    if (isset($input['rating']['rate'])) {
+        $updates[] = "`rating.rate` = :rating_rate";
+        $params[':rating_rate'] = $input['rating']['rate'];
+    }
+
+    if (isset($input['rating']['count'])) {
+        $updates[] = "`rating.count` = :rating_count";
+        $params[':rating_count'] = $input['rating']['count'];
+    }
+
+    $consultaSql = "UPDATE productes SET " . implode(', ', $updates) . " WHERE id = :id";
+
+    // Preparar la consulta
+    $stmt = $db->prepare($consultaSql);
+
+    // Lligar els valors dels paràmetres
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value);
+    }
 
 
 
+    if ($stmt->execute()) {
+        http_response_code(200);
+        echo json_encode(["success" => "Producte modificat correctament"]);
+    } else {
+        http_response_code(500);
+        echo json_encode(["error" => "Error al modificar el producte"]);
+    }
 
-
-
-
+    /*
+} else {
+    http_response_code(400);
+    echo json_encode(["error" => "Dades incompletes"]);
+}
+    */
 
 
     
