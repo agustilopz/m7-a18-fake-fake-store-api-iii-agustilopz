@@ -150,12 +150,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $input = json_decode(file_get_contents('php://input'), true);
 
     if (isset($input['id'])) {
-    
 
     $updates = []; // Per la part -> $stmt = $db->prepare("UPDATE..")
     $params = [':id' => $input['id']]; // Per la part -> $stmt->bindVAlue
 
-    // Comprovar quins camps són presents a la petició i afegir-los a l'array de "updates"
+    // Comprovar quins camps estan a la petició i afegir-los a l'array de "updates"
     if (isset($input['title'])) {
         $updates[] = "title = :title";
         $params[':title'] = $input['title'];
@@ -226,7 +225,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 
-    
 
 // Peticions DELETE
 } else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {

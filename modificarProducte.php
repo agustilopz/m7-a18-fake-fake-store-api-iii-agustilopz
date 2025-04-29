@@ -138,21 +138,7 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
         
     const categoria = document.getElementById("category").value;
 
-    /*
-    const dades = {
-        id: id, // Enviem l'id per saber quin producte actualitzar
-        title: document.getElementById("title").value,
-        price: parseFloat(document.getElementById("price").value),
-        description: document.getElementById("description").value,
-        category: document.getElementById("category").value,
-        image: document.getElementById("image").value,
-        rating: {
-            rate: parseFloat(document.getElementById("rating-rate").value),
-            count: parseInt(document.getElementById("rating-count").value)
-        }
-    };
-    */
-
+    // Segons les dades modificades farem PUT O PATCH
     let updateComplet = Object.keys(dades).length === 8;  // 8 és el nombre total de camps a actualitzar (inclou rating)
 
     fetch("api/productes.php", {
