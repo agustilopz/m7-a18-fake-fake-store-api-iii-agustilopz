@@ -65,13 +65,13 @@ if (id) {
         document.getElementById('rating-count').value = producte.rating.count;
 
         // Guardem els valors en variables per utilitzar-los després
-        titleAct = product.title;
-        priceAct = product.price;
-        descriptionAct = product.description;
-        categoryAct = product.category;
-        imageAct  = product.image;
+        titleAct = producte.title;
+        priceAct = producte.price;
+        descriptionAct = producte.description;
+        categoryAct = producte.category;
+        imageAct  = producte.image;
         rateAct  = producte.rating.rate;
-        countAct = product.rating.count;
+        countAct = producte.rating.count;
     })
     .catch(error => {
         console.error("Error carregant el producte:", error);
@@ -139,8 +139,8 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
     const categoria = document.getElementById("category").value;
 
     // Segons les dades modificades farem PUT O PATCH
-    let updateComplet = Object.keys(dades).length === 8;  // 8 és el nombre total de camps a actualitzar (inclou rating)
-
+    let updateComplet = Object.keys(dades).length === 8;  // (8 és el nombre total de camps)
+    //console.log(JSON.stringify(dades));
     fetch("api/productes.php", {
         method: updateComplet ? "PUT" : "PATCH", 
         headers: {
