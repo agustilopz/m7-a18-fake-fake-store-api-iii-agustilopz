@@ -5,7 +5,7 @@ include("includes/menu.php");
 <div class="container">
   <h3 id="titol-categoria">
     GESTIÓ DE PRODUCTES
-    <a href="afegirProducte.php" class="btn btn-afegir">+ Gestionar productes</a>
+    <a href="afegirProducte.php" class="btn btn-afegir">+ Afegir producte</a>
   </h3>
   <div id="llistat-productes" class="llistat-productes"></div>
 </div>

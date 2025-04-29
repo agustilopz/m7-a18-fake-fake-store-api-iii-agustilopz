@@ -107,8 +107,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 // Peticions PUT
 } else if($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
+    $input = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($input['id']) && isset($input['title']) && isset($input['price']) && isset($input['description']) && isset($input['category']) 
+    && isset($input['image']) && isset($input['rating']['rate']) && isset($input['rating']['count'])) {
+
+        $stmt = $db->prepare("UPDATE productes SET 
+            title = :title, 
+            price = :price, 
+            description = :description, 
+            category = :category, 
+            image = :image,
+            `rating.rate` = :rating_rate, 
+            `rating.count` = :rating_count 
+            WHERE id = :id");
+
+        $stmt->bindValue(':id', $input['id'], SQLITE3_INTEGER);
+        $stmt->bindValue(':title', $input['title'], SQLITE3_TEXT);
+        $stmt->bindValue(':price', $input['price'], SQLITE3_FLOAT);
+        $stmt->bindValue(':description', $input['description'], SQLITE3_TEXT);
+        $stmt->bindValue(':category', $input['category'], SQLITE3_TEXT);
+        $stmt->bindValue(':image', $input['image'], SQLITE3_TEXT);  
+        $stmt->bindValue(':rating_rate', $input['rating']['rate'], SQLITE3_FLOAT);  
+        $stmt->bindValue(':rating_count', $input['rating']['count'], SQLITE3_INTEGER);  
+
+        if ($stmt->execute()) {
+            http_response_code(200);
+            echo json_encode(["success" => "Producte modificat correctament"]);
+        } else {
+            http_response_code(500);
+            echo json_encode(["error" => "Error al modificar el producte"]);
+        }
+
+    } else {
+        http_response_code(400);
+        echo json_encode(["error" => "Dades incompletes"]);
+    }
+
 // Peticions PATCH
 } else if($_SERVER['REQUEST_METHOD'] == 'PATCH') {
+
+
+
+
+
+
+
+
+
+
+    
 
 // Peticions DELETE
 } else if($_SERVER['REQUEST_METHOD'] == 'DELETE') {
