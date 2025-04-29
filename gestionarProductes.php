@@ -25,6 +25,8 @@ include("includes/menu.php");
       .then(data => {
         if (!data.success) {
           alert("Error: " + (data.error || "No s'ha pogut eliminar"));
+        } else {
+          window.location.href = `veureProductesCategoria.php?`;
         }
       })
       .catch(err => {
