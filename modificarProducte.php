@@ -1,6 +1,7 @@
 <?php
 include("includes/head.html");
 include("includes/menu.php");
+include("includes/errorHandler.php");
 ?>
 
 <div class="container">
@@ -11,7 +12,7 @@ include("includes/menu.php");
 <input type="text" name="title" id="title" required><br><br>
 
 <label>Preu: </label><br>
-<input type="number" name="price" id="price" required><br><br>
+<input type="number" step="0.01" min="0" name="price" id="price" required><br><br>
 
 <label>Descripció: </label><br>
 <textarea type="text" name="description" id="description" required></textarea><br><br>
@@ -21,13 +22,13 @@ include("includes/menu.php");
 <datalist id="categories"></datalist><br><br>
 
 <label>URL de la imatge: </label><br>
-<input type="url" name="image" id="image" required><br><br>
+<input type="url" min="0" name="image" id="image" required><br><br>
 
 <label>Rating rate: </label><br>
-<input type="number" name="rating-rate" id="rating-rate" required><br><br>
+<input type="number" min="0" step="0.01" name="rating-rate" id="rating-rate" required><br><br>
 
 <label>Rating count: </label><br>
-<input type="number" name="rating-count" id="rating-count" required><br><br>
+<input type="number" min="0" name="rating-count" id="rating-count" required><br><br>
 
 <button type="submit">Modificar producte</button>
 </form>
@@ -106,21 +107,6 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
     let valueRate = parseFloat(document.getElementById("rating-rate").value);
     let valueCount = parseInt(document.getElementById("rating-count").value);
 
-
-    /*
-    let titleNou = titleAct != valueTitle ? valueTitle : NULL;
-    let priceNou = priceAct != valuePrice ? valuePrice : NULL;
-    let descriptionNou = descriptionAct != valueDesc ? valueDesc : NULL;
-    let categoryNou = categoryAct != valueCat ? valueCat : NULL;
-    let imageNou = imageAct != valueImg ? valueImg : NULL;
-    let rateNou = rateAct != valueRate ? valueRate : NULL;
-    let countNou = countAct != valueCount ? valueCount : NULL;
-    */
-
-    if(titleNou != NULL && priceNou != NULL && descriptionNou != NULL && categoryNou != NULL && imageNou != NULL 
-    && rateNou != NULL && countNou != NULL) {
-
-        // PATCH
         const dades = {
         id: id, // Enviem l'id per saber quin producte actualitzar
         };
@@ -150,12 +136,9 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
         dades.rating.count = valueCount;
         }
         
-        
-    } else {
-        // PUT 
-
     const categoria = document.getElementById("category").value;
 
+    /*
     const dades = {
         id: id, // Enviem l'id per saber quin producte actualitzar
         title: document.getElementById("title").value,
@@ -168,6 +151,7 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
             count: parseInt(document.getElementById("rating-count").value)
         }
     };
+    */
 
     let updateComplet = Object.keys(dades).length === 8;  // 8 és el nombre total de camps a actualitzar (inclou rating)
 
@@ -190,8 +174,6 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
         console.error("Error enviant dades:", error);
         document.getElementById("resposta").innerHTML = `<p style="color: red;">Error inesperat</p>`;
     });
-
-}
 
 });
 </script>

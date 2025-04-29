@@ -10,7 +10,7 @@ include("includes/menu.php");
     <input type="text" name="title" id="title" required><br><br>
 
     <label for="price">Preu:</label><br>
-    <input type="number" step="0.01" name="price" id="price" required><br><br>
+    <input type="number"  min="0" step="0.01" name="price" id="price" required><br><br>
 
     <label for="description">Descripció:</label><br>
     <textarea name="description" id="description" rows="4" required></textarea><br><br>

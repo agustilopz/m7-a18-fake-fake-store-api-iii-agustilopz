@@ -148,10 +148,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } else if($_SERVER['REQUEST_METHOD'] == 'PATCH') {
 
     $input = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($input['id'])) {
     
 
-    $updates = []; // $stmt = $db->prepare("UPDATE..")
-    $params = [':id' => $input['id']]; // $stmt->bindVAlue
+    $updates = []; // Per la part -> $stmt = $db->prepare("UPDATE..")
+    $params = [':id' => $input['id']]; // Per la part -> $stmt->bindVAlue
 
     // Comprovar quins camps són presents a la petició i afegir-los a l'array de "updates"
     if (isset($input['title'])) {
@@ -190,6 +192,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $params[':rating_count'] = $input['rating']['count'];
     }
 
+        // Si no s'ha passat cap camp a actualitzar, retornar un error
+        if (empty($updates)) {
+            http_response_code(400);
+            echo json_encode(["error" => "No s'han passat dades per actualitzar"]);
+            exit();
+        }
+
+
     $consultaSql = "UPDATE productes SET " . implode(', ', $updates) . " WHERE id = :id";
 
     // Preparar la consulta
@@ -200,8 +210,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $stmt->bindValue($key, $value);
     }
 
-
-
     if ($stmt->execute()) {
         http_response_code(200);
         echo json_encode(["success" => "Producte modificat correctament"]);
@@ -210,12 +218,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         echo json_encode(["error" => "Error al modificar el producte"]);
     }
 
-    /*
+    
 } else {
     http_response_code(400);
     echo json_encode(["error" => "Dades incompletes"]);
 }
-    */
+
 
 
     
