@@ -139,7 +139,7 @@ document.getElementById("form-producte").addEventListener("submit", function(e) 
     const categoria = document.getElementById("category").value;
 
     // Segons les dades modificades farem PUT O PATCH
-    let updateComplet = Object.keys(dades).length === 8;  // (8 és el nombre total de camps)
+    let updateComplet = Object.keys(dades).length === 7;  // (7 és el nombre total de camps - id)
     //console.log(JSON.stringify(dades));
     fetch("api/productes.php", {
         method: updateComplet ? "PUT" : "PATCH", 
