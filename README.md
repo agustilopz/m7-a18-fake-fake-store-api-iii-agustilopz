@@ -58,13 +58,13 @@ El proyecto permite consultar, añadir, modificar y eliminar productos de una ti
 ## Capturas de pantalla
 
 ### Listado de productos por categoría
-![Listado de productos](screenshots/fake-store-api-productos.jpg)
+![Listado de productos](screenshots/fake-store-api-productes.jpg)
 
 ### Gestión de productos
-![Gestión de productos](screenshots/fake-store-api-gestion-productos.jpg)
+![Gestión de productos](screenshots/fake-store-api-gestio-productes.jpg)
 
 ### Detalle de un producto
-![Detalle producto](screenshots/fake-store-api-detalle-producto.jpg)
+![Detalle producto](screenshots/fake-store-api-detall-producte.jpg)
 
 ## Créditos
 
